@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Loading Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <style>
+        .loader{
+            position : fixed;
+            top : 0;
+            left : 0;
+            width : 100vw;
+            height : 100vh;
+            display : flex;
+            align-items : center;
+            justify-content : center;
+            background : #DCDCDC;
+            transition: opacity 0.75s, visibility 0.75s ;
+        }
+        .loader::after{
+            content: "";
+            width:75px;
+            height:75px;
+            border:15px solid #dddddd;
+            border-top-color: #009578;
+            border-radius:50%;
+            animation: loading 0.75s ease infinite;
+
+
+        }
+
+        .loader--hidden{
+            opacity:0;
+            visibility:hidden;
+
+        }
+
+        @keyframes loading{
+            from { transform : rotate(0turn) }
+            to { transform : rotate(1turn) }
+        }
+    </style>
+    <!--
+    <script>
+        window.addEventListener("load", () =>{
+            document.querySelector(".loader").classList.add("loader--hidden");
+        });
+    </script>
+    !-->
+
+    <script>
+
+          var heavyJobUrl = '{{ url_for("views.check_job") }}';
+
+          // Periodically check if the heavy job is finished
+          var checkJobInterval = setInterval(function() {
+              $.ajax({
+                  url: heavyJobUrl,
+                  success: function(data) {
+                      if (data === 'completed') {
+                          clearInterval(checkJobInterval);
+                          window.location.href = '/results';
+                      }
+                  }
+              });
+          }, 5000);  // Adjust the interval as needed
+      </script>
+</head>
+  <body>
+
+  <div class="loader"></div>
+
+
+
+
+</body>
+</html>
