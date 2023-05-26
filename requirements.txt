@@ -11,5 +11,5 @@ python-dotenv
 flask
 secret_key_generator
 flask_login
-sklearn
+scikit-learn
 Gunicorn

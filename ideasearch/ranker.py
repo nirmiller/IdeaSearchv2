@@ -2,7 +2,6 @@ from .variables import nlp, semantic_header, API_URL
 import requests
 import time
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
 
 '''
 def get_semantic_simalirty(example_1, example_2):
