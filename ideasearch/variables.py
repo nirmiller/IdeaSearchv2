@@ -28,7 +28,7 @@ API_URL = "https://api-inference.huggingface.co/models/sentence-transformers/all
 
 #spacy.cli.download("en_core_web_lg")
 
-nlp = spacy.load("en_core_web_lg")
+nlp = spacy.load("en_core_web_mg")
 print("loading_model")
 
 patent_api_key = os.getenv('PATENTVIEW_API_KEY')
