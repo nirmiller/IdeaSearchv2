@@ -26,7 +26,7 @@ api_token = os.getenv('SEMANTIC_API_KEY')
 semantic_header = {"Authorization": f"Bearer {api_token}"}
 API_URL = "https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2"
 
-#spacy.cli.download("en_core_web_lg")
+spacy.cli.download("en_core_web_lg")
 
 nlp = spacy.load("en_core_web_lg")
 print("loading_model")
