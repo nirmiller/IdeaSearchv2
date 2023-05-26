@@ -7,7 +7,7 @@ def get_scholar_query(search):
   scholar_query_resuts = []
   print("Scholar", search.title)
   try:
-    r = requests.get(f'http://api.semanticscholar.org/graph/v1/paper/search?query={search.title}&offset=10&limit=25&fields=title,authors,url,abstract')
+    r = requests.get(f'http://api.semanticscholar.org/graph/v1/paper/search?query={search.title}&offset=10&limit=10&fields=title,authors,url,abstract')
     data = r.json()
     print(data)
     for d in data['data']:
@@ -68,10 +68,10 @@ def get_patent_query(search):
     print("Patent", search.title)
     try:
         if search.description == None or search.description == 'NA':
-            query_url = 'https://api.patentsview.org/patents/query?o={{"size":100}}&q={{"_and":[{{"_gte":{{"patent_date":"2001-01-01"}}}},{{"_text_any":{{"patent_title":"{}"}}}}]}}&f=["patent_number","patent_title", "patent_abstract",  "patent_date"]'.format(
+            query_url = 'https://api.patentsview.org/patents/query?o={{"size":10}}&q={{"_and":[{{"_gte":{{"patent_date":"2001-01-01"}}}},{{"_text_any":{{"patent_title":"{}"}}}}]}}&f=["patent_number","patent_title", "patent_abstract",  "patent_date"]'.format(
                 search.title)
         else:
-            query_url = 'https://api.patentsview.org/patents/query?o={{"size":100}}&q={{"_and":[{{"_gte":{{"patent_date":"2001-01-01"}}}},{{"_text_any":{{"patent_title":"{}","patent_abstract":"{}"}}}}]}}&f=["patent_number","patent_title", "patent_abstract",  "patent_date"]'.format(
+            query_url = 'https://api.patentsview.org/patents/query?o={{"size":10}}&q={{"_and":[{{"_gte":{{"patent_date":"2001-01-01"}}}},{{"_text_any":{{"patent_title":"{}","patent_abstract":"{}"}}}}]}}&f=["patent_number","patent_title", "patent_abstract",  "patent_date"]'.format(
                 search.title, search.description)
         r = requests.get(query_url, headers=patent_header)
         data = r.json()
