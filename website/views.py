@@ -95,7 +95,7 @@ def results():
         for i in range(len(r)):
             sum += (1 - r[i][1]) * 100
         s = round(sum / len(r), 2)
-
+        s = round(1-r[0][1], 2)
         return render_template('results.html', score=s, result=r, find_icon=find_icon, result_range=range(len(r)))
     else:
         return "The heavy job is still running. Please wait."
