@@ -112,11 +112,11 @@ def score_list(iq, queries_list, threshold):
     start = time.time()
 
     for i in range(len(title_qs_scores)):
-        combined_t_score = title_qs_scores[i] * title_ws_scores[i]
+        combined_t_score = title_qs_scores[i]
         if combined_t_score > threshold:
             final_scores.append([title_qs[i], combined_t_score])
     for j in range(len(desc_qs_scores)):
-        combined_d_score = desc_qs_scores[j] * desc_ws_scores[j]
+        combined_d_score = desc_qs_scores[j]
 
         if combined_d_score > threshold:
             final_scores.append([desc_qs[j], combined_d_score])
