@@ -11,6 +11,12 @@ views = Blueprint('views', __name__)
 executor = ThreadPoolExecutor(2)
 
 
+def get_search_desc(idea):
+    return idea
+
+def get_search_title(idea):
+    return idea
+
 def get_meta(tag, data):
     if tag == 'PATENT':
         return f"Patent Number : {data[1]} \n Patent Date : {data[2]}"
@@ -20,7 +26,7 @@ def get_meta(tag, data):
         return f'Youtube Link : {data[1]}'
     elif tag == 'SCHOLAR':
         return f'Paper Link : {data[1]} \n Paper ID : {data[2]}'
-
+    
 
 def find_icon(tag):
     if tag == 'PATENT':
@@ -33,13 +39,12 @@ def find_icon(tag):
         return url_for('static', filename='images/ScholarIcon.svg')
 
 
-def execute_heavy_job(passed_types):
+def execute_heavy_job(search_depth):
     global future
 
-    it = session.get('idea_title')
-    id = session.get('idea_desc')
+    idea = session.get('idea')
 
-    future = executor.submit(ideasearcher.search_idea, it, id, 0.25, 2, passed_types)
+    future = executor.submit(ideasearcher.search_idea, idea, 0.25, 2, search_depth)
     future.add_done_callback(custom_callback)
     return 'Heavy job started. Result will be available soon.'
 
@@ -65,15 +70,16 @@ def check_job():
 @views.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        idea_title = request.form.get('idea_title')
-        idea_desc = request.form.get('idea_desc')
+        idea = request.form.get('idea')
+        search_depth=False
+        if request.form.get('search_depth') == 'on':
+            search_depth = True
+        else:
+            search_depth = False
 
-        passed_types = request.form.getlist('search_types')
+        session['idea'] = idea
 
-        session['idea_title'] = idea_title
-        session['idea_desc'] = idea_desc
-
-        execute_heavy_job(passed_types)
+        execute_heavy_job(search_depth)
 
         # Thread return progress through return of the function
         return redirect(url_for('views.loading'))

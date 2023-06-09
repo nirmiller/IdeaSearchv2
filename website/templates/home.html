@@ -33,10 +33,69 @@
             width:200px;
             height:100px;
 
-
         }
 
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 60px;
+          height: 34px;
+        }
 
+        /* Hide default HTML checkbox */
+        .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        /* The slider */
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 26px;
+          width: 26px;
+          left: 4px;
+          bottom: 4px;
+          background-color: white;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        input:checked + .slider {
+          background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+          -webkit-transform: translateX(26px);
+          -ms-transform: translateX(26px);
+          transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+          border-radius: 34px;
+        }
+
+        .slider.round:before {
+          border-radius: 50%;
+        }
 
     </style>
 
@@ -47,33 +106,17 @@
 <div style="text-align:center;font-family:'Quicksand;font-size:40px;">
     <p1 style="font-size:40px;font-size:50px;font-family:'Quicksand';">Find your mark- on the world!</p1>
     <form method="POST">
-        <label for="idea_title" style="font-size:25px;font-family:Quicksand;">Idea Title</label><br>
+        <label for="idea" style="font-size:25px;font-family:Quicksand;"></label><br>
         <input style="width:50vw;color:grey;border: 2px solid black;border-radius:4px;font-size:30px;font-family:Quicksand;text-align:center;"
-               type="text" id="idea_title" name="idea_title" value="What is your idea"><br>
-        <label for="idea_desc" style="font-size:25px;font-family:Quicksand;">Idea Description</label><br>
-        <input style="width:50vw;color:grey;border: 2px solid black;border-radius:4px;font-size:30px;font-family:Quicksand;text-align:center;"
-               type="text" id="idea_desc" name="idea_desc" value="Explain your idea"><br><br>
+               type="text" id="idea" name="idea" placeholder="Tell me about your idea..."><br>
 
 
-        <div class="dropdown-checkboxes">
-            <div class="checkbox-list">
-                <input type="checkbox" id="google_type" name="search_types" value="google_type" checked>
-                <label style="font-size:20px;" for="google_type">Google Search</label>
-
-
-                <input type="checkbox" id="patent_type" name="search_types" value="patent_type" checked>
-                <label style="font-size:20px;" for="patent_type">Patent Search <span style="font-size:15px;">(takes a lot longer sometimes)</span> </label>
-
-
-                <input type="checkbox" id="scholar_type" name="search_types" value="scholar_type" checked>
-                <label style="font-size:20px;" for="scholar_type">Scholar Search</label>
-
-                <input type="checkbox" id="youtube_type" name="search_types" value="youtube_type" checked>
-                <label style="font-size:20px;" for="youtube_type">Youtube Search</label>
-            </div>
-        </div>
         <input style="background-color:navy;border: none;color: white;padding: 16px 32px;text-decoration: none;margin: 4px 2px;cursor: pointer;"
                type="submit" value="Submit">
+        <label class="switch" for="search_depth">
+            <input type="checkbox" id="search_depth" name="search_depth">
+            <span class="slider round"></span>
+        </label>
     </form>
 
 </div>

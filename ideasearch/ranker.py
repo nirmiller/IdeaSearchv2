@@ -50,9 +50,9 @@ def get_cos_similarity(test, compare):
         return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
 
     return 0
-def score_query(search_algo, idea_query, threshold):
+def score_query(search_algo, idea_query, threshold, search_depth):
 
-  searched_results = search_algo(idea_query)
+  searched_results = search_algo(idea_query, search_depth)
   searched_ideas = score_list(iq=idea_query, queries_list=searched_results, threshold=threshold)
   return searched_ideas
 

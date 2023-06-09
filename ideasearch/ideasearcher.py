@@ -3,6 +3,7 @@ from .ranker import ranker, score_list, score_query, get_cos_similarity
 from .utils import query
 import time
 from concurrent.futures import ThreadPoolExecutor, wait, ALL_COMPLETED
+from .summary import clean_up_string, summarize_title
 
 
 def tree_search(idea_query, threshold, max_depth):
@@ -58,11 +59,14 @@ def searcher_patent(idea_query, threshold):
     return score_list(idea_query, patents, threshold)
 
 
-def search_idea(idea_title="Tigers", idea_description="Lions and Bears", threshold=.5, max_depth=2,
-                passed_types=['patent_type', 'google_type', 'youtube_type', 'scholar_type', ]):
+def search_idea(idea="Lions Tigers and Berars", threshold=.5, max_depth=2,
+                search_depth=False):
     start = time.time()
-    idea_query = query(idea_title, idea_description, [])
-    ts = threaded_search(idea_query, threshold, passed_types)
+
+    clean_up_idea = clean_up_string(idea)
+
+    idea_query = query(summarize_title(idea), idea, [])
+    ts = threaded_search(idea_query, threshold, search_depth)
     if len(ts) >= 1:
         print('Time : ', time.time() - start)
 
@@ -78,18 +82,17 @@ def linear_search(idea_query, threshold):
     return sorted(searched_ideas, key=lambda x: 1 / x[1])
 
 
-def threaded_search(idea_query, threshold, passed_types):
-    if len(passed_types)<1:
-        return [[query("Error with filters", "Not Enough Filtrs", []), 0]]
+def threaded_search(idea_query, threshold, search_depth):
 
-    exec = ThreadPoolExecutor(4)
 
-    algo_list = {'patent_type':get_patent_query, 'google_type':get_google_query , 'scholar_type':get_scholar_query, 'youtube_type':get_youtube_query}
+    exec = ThreadPoolExecutor(3)
+
+    algo_list = {'patent_type':get_patent_query, 'google_type':get_google_query , 'scholar_type':get_scholar_query}
 
     futures = []
     searched_ideas = []
-    for pt in passed_types:
-        future = exec.submit(score_query, algo_list[pt], idea_query, threshold)
+    for alg in algo_list.keys():
+        future = exec.submit(score_query, algo_list[alg], idea_query, threshold, search_depth)
         future.add_done_callback(custom_callback)
         futures.append(future)
     start = time.time()
