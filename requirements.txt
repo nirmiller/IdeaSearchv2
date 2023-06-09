@@ -125,7 +125,7 @@ murmurhash==1.0.9
     #   thinc
 nltk==3.8.1
     # via -r requirements.in
-numpy==1.24.3
+numpy>=1.21.3
     # via
     #   blis
     #   scikit-learn
