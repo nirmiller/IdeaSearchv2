@@ -45,7 +45,7 @@ def summarize_title(idea):
   completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
     messages=[
-      {"role": "user", "content": f"Summarize into a short effective google search, max length 20 words, this text : {text} while keeping in mind these keywords : {keywords}"}
+      {"role": "user", "content": f"Summarize into a short effective google search, max length 20 words, this text : {text} while keeping in mind and using some of these keywords : {keywords}"}
     ]
   )
 
