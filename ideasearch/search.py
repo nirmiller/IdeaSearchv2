@@ -6,7 +6,7 @@ from .utils import query
 def get_scholar_query(search, depth=False):
     scholar_depth = 10
     if depth:
-        scholar_depth = 100
+        scholar_depth = 25
 
     scholar_query_resuts = []
     print("Scholar", search.title)
@@ -24,15 +24,20 @@ def get_scholar_query(search, depth=False):
     return scholar_query_resuts
 
 
-def get_youtube_query(search):
+def get_youtube_query(search, depth=False):
+
+    youtube_search_depth = 10
+    if depth:
+        youtube_search_depth = 100
+
     youtube_query_resuts = []
     print("YOUTUBE", search.title)
     try:
-        request = youtube.search().list(q=search.title, part='snippet', type='video', maxResults=10, order='viewCount')
+        request = youtube.search().list(q=search.title, part='snippet', type='video', maxResults=youtube_search_depth, order='viewCount')
         res = request.execute()
         for item in res['items']:
             video_id = item['id']['videoId']
-            link = f'www.youtube.com/watch?v={video_id}'
+            link = f'https://www.youtube.com/watch?v={video_id}'
             youtube_query_resuts.append(query(item['snippet']['title'], "NA", ['YOUTUBE', link]))
     except Exception as e:
         print("Error with youtube api", e)
@@ -67,10 +72,7 @@ def get_google_query(search, depth=False):
                     long_description = "NA"
                 title = search_item.get("title")
                 # print(search_item.get('link'))
-                if 'youtube' in search_item.get('link'):
-                    query_results.append(query(title, long_description, ['YOUTUBE', search_item['link']]))
-                else:
-                    query_results.append(query(title, long_description, ['GOOGLE_WEBSITE', search_item['link']]))
+                query_results.append(query(title, long_description, ['GOOGLE_WEBSITE', search_item['link']]))
         except Exception as e:
             print("Error with google api", e)
 

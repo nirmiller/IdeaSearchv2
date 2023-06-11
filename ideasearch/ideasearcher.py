@@ -85,9 +85,9 @@ def linear_search(idea_query, threshold):
 def threaded_search(idea_query, threshold, search_depth):
 
 
-    exec = ThreadPoolExecutor(3)
+    exec = ThreadPoolExecutor(4)
 
-    algo_list = {'patent_type':get_patent_query, 'google_type':get_google_query , 'scholar_type':get_scholar_query}
+    algo_list = {'patent_type':get_patent_query, 'google_type':get_google_query , 'scholar_type':get_scholar_query, 'youtube_type':get_youtube_query}
 
     futures = []
     searched_ideas = []

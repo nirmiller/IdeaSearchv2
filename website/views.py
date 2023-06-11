@@ -28,20 +28,21 @@ def get_meta(search_data):
     image = None
     extra_data = []
     if tag == 'GOOGLE_WEBSITE' or tag == 'YOUTUBE':
-
         info = extract_info(url, tag)
         if info == -1:
             image = find_icon(tag)
         else:
             image = info['image_url']
-        extra_data = [url]
+        extra_data = []
 
     elif tag == 'SCHOLAR':
-        extra_data = [f'Paper Link : {search_data.data[1]}', f'Paper ID : {search_data.data[2]}']
+        extra_data = [f'Paper Link : {search_data[0].data[1]}', f'Paper ID : {search_data[0].data[2]}']
         image = find_icon(tag)
+        url = ''
     elif tag == 'PATENT':
-        extra_data = [f'Patent Number : {search_data.data[1]}', f'Patent Date : {search_data.data[2]}']
+        extra_data = [f'Patent Number : {search_data[0].data[1]}', f'Patent Date : {search_data[0].data[2]}']
         image = find_icon(tag)
+        url = ''
 
     return image, extra_data, url
 
@@ -75,7 +76,7 @@ def idea():
         current_res = future.result()[int(index)]
 
         image_l, extra_d, url = get_meta(current_res)
-
+        print('TYPE', current_res[0].data[0])
         return render_template('idea.html', result=current_res, find_icon=find_icon, image_link=image_l, extra_data=extra_d, url=url)
     return "<h1>Hello</h1>"
 
@@ -165,7 +166,7 @@ def extract_info(url, tag):
             image_url = og_image['content']
         else:
             # If no Open Graph metadata is found, assign the default image URL
-            image_url = url_for(default_image_url)
+            image_url = default_image_url
 
         return {'url': url, 'title': title, 'description': description, 'image_url': image_url}
     except Exception as e:

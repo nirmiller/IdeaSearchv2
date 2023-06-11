@@ -137,11 +137,14 @@ footer {
 
     <h1 class="text" >Meta Data : </h1>
 
-
     <a href="{{ url }}">
-        <img src="{{ image_link }}" alt="preview" style="width:20vw;height:10vw;">
+        <img src="{{ image_link }}" alt="preview" style="width:40vw;height:20vw;">
+        <h3 style="width:40vw;">Link : {{ url }}</h3>
     </a>
 
+    {% for ed in extra_data %}
+    <h3>{{ ed }} </h3>
+    {% endfor %}
 
 
 </footer>
