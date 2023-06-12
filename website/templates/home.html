@@ -9,6 +9,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0/js/bootstrap-select.min.js"></script>
     <title>The Deep End</title>
     <style>
+
+
+
+
+        * {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+#im73{
+  background-repeat:repeat;
+  background-position:left top;
+  background-attachment:scroll;
+  background-size:auto;
+  background-image:linear-gradient(#f2f2f2 0%, #f2f2f2 100%);
+}
+.gjs-row{
+  display:flex;
+  justify-content:flex-start;
+  align-items:stretch;
+  flex-wrap:nowrap;
+  padding:10px;
+}
+.gjs-cell{
+  min-height:75px;
+  flex-grow:1;
+  flex-basis:100%;
+}
+#ikwzb{
+  flex-basis:35%;
+}
+#i1t7p{
+  flex-basis:47%;
+}
+@media (max-width: 768px){
+  .gjs-row{
+    flex-wrap:wrap;
+  }
+}
+
         body {
            font-family: 'Quicksand';
            font-size:40px;
@@ -100,34 +141,56 @@
     </style>
 
 </head>
-<body>
-<img src="{{ url_for('static', filename='images/logo3.svg') }}" alt="Welcome to Idea-Search.com!" width="1000"
-     height="250" style="display: block; margin: 0 auto;">
-<div style="text-align:center;font-family:'Quicksand;font-size:40px;">
-    <p1 style="font-size:40px;font-size:50px;font-family:'Quicksand';">Find your mark- on the world!</p1>
-    <form method="POST">
-        <label for="idea" style="font-size:25px;font-family:Quicksand;"></label><br>
-        <input style="width:50vw;color:grey;border: 2px solid black;border-radius:4px;font-size:30px;font-family:Quicksand;text-align:center;"
-               type="text" id="idea" name="idea" placeholder="Tell me about your idea..."><br>
 
 
-        <input style="background-color:navy;border: none;color: white;padding: 16px 32px;text-decoration: none;margin: 4px 2px;cursor: pointer;"
-               type="submit" value="Submit">
-        <label class="switch" for="search_depth">
+<body id="im73">
+
+  <div class="gjs-row" id="iym8">
+    <div class="gjs-cell">
+    </div>
+    <div class="gjs-cell" id="i30t">
+        <img src="{{ url_for('static', filename='images/logo3.svg') }}" alt="Welcome to Idea-Search.com!" width="1000"
+        height="250" style="display: block; margin: 0 auto;">
+    </div>
+    <div class="gjs-cell">
+    </div>
+  </div>
+
+  <div class="gjs-row" id="ijhbr">
+    <div class="gjs-cell" id="i1t7p">
+    </div>
+    <div class="gjs-cell">
+         <p1 style="font-size:40px;font-size:50px;font-family:'Quicksand';">Explore the possibilities: validate your idea or uncover similar ideas!</p1>
+    </div>
+    <div class="gjs-cell" id="ikwzb">
+    </div>
+  </div>
+
+  <div class="gjs-row" id="ip98h">
+    <div class="gjs-cell">
+    </div>
+<div class="gjs-cell">
+  <form method="POST" style="display: flex; align-items: center;">
+    <label for="idea" style="font-size: 25px; font-family: Quicksand;"></label><br>
+    <input style="height: 3vw; font-family: Quicksand; width: 50vw; color: black; font-size: 30px; font-family: Quicksand; text-align: center; padding-right: 10px; margin-right: -10px;"
+           type="text" id="idea" name="idea" placeholder="Tell me about your idea...">
+
+    <input style="height: 3vw; font-family: Quicksand; font-size: 25px; background-color: white; color: grey; padding: 16px 32px; text-decoration: none; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center;"
+           type="submit" value="Discover">
+  </form>
+</div>
+    <div class="gjs-cell">
+        <label class="switch" for="search_depth" style="margin-left:10px">
             <input type="checkbox" id="search_depth" name="search_depth">
             <span class="slider round"></span>
         </label>
-    </form>
-
-</div>
-
-<script>
-  document.getElementById('search_types-toggle').addEventListener('change', function() {
-    var checkboxList = document.querySelector('.checkbox-list');
-    checkboxList.classList.toggle('show', this.checked);
-  });
+    </div>
+  </div>
 
 
-</script>
 </body>
+
 </html>
+
+
+
