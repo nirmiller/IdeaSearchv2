@@ -7,6 +7,50 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <title>Idea Searched</title>
     <style>
+
+    * {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.gjs-row{
+  display:flex;
+  justify-content:flex-start;
+  align-items:stretch;
+  flex-wrap:nowrap;
+  padding:10px;
+}
+.gjs-cell{
+  min-height:75px;
+  flex-grow:1;
+  flex-basis:100%;
+}
+#i2hc{
+  height:682px;
+}
+#ivvu{
+  height:713px;
+}
+#i49l{
+  height:416px;
+}
+#iuck{
+  height:286px;
+}
+#i3ev{
+  background-repeat:repeat;
+  background-position:left top;
+  background-attachment:scroll;
+  background-size:auto;
+  background-image:none;
+}
+@media (max-width: 768px){
+  .gjs-row{
+    flex-wrap:wrap;
+  }
+}
+
             .loader{
                 position : fixed;
                 top : 0;
@@ -14,8 +58,6 @@
                 width : 100vw;
                 height : 100vh;
                 display : flex;
-                align-items : center;
-                justify-content : center;
                 background : #DCDCDC;
                 transition: opacity 0.75s, visibility 0.75s ;
             }
@@ -93,8 +135,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 120px;
-    height: 120px;
+    width: 20vw;
+    margin-left:12vw;
+    height: 20vw;
     border-radius: 50%;
     background:
       radial-gradient(closest-side, white 79%, transparent 80% 100%),
@@ -110,9 +153,11 @@
 
 
   .layout {
-  width: 70%;
+  width: 2%;
   height:10vw;
   margin-top:5vw;
+  align-text:center;
+
 
   display: grid;
   grid:
@@ -122,10 +167,13 @@
 }
 
 .result_header { grid-area: body;
-                 margin-left:25vw;
 
 }
 .side { grid-area: side; }
+
+
+
+
 
     </style>
     <script>
@@ -160,68 +208,94 @@
 
 
 
+
+
+
+
     </script>
 
 </head>
 <body>
 
-<div class="loader"></div>
-<section class="layout">
-    <div class="result_header">
-        <h1>Results : {{ score }}% Unique Idea!</h1>
-    </div>
-    <div class="side">
-        <div class="progress-bar">
-            <progress id="progress" value="75" min="0" max="100" style="visibility:hidden;height:0;width:0;"></progress>
+
+<div class="gjs-row" id="i2hc">
+    <div class="gjs-cell">
+        <div class="gjs-row" id="ivvu">
+            <div class="gjs-cell">
+
+                <div class="container">
+                    <table>
+                        <tr>
+                            <th style="width:30vw;">Found Ideas</th>
+                            <th style="width:10vw;">Score</th>
+                            <th style="width:10vw;">Type</th>
+                        </tr>
+                        {% if result != None%}
+                        {% for i in result_range %}
+                        {% if result[i][0].description != None %}
+                        <tr class="box" onClick="redirectToIdeaPage('{{i}}');">
+                            <td>
+                                {{ result[i][0].title }}
+                            </td>
+                            <td>
+                                {{ result[i][1] }}
+                            </td>
+                            <td>
+                                <img title="{{result[i][0].data[0]}}" alt="{{result[i][0].data[0]}}"
+                                     src="{{ find_icon(result[i][0].data[0]) }}" style="width:50px; height:50px">
+                            </td>
+
+                            {% endif %}
+
+
+                            {% endfor %}
+                            {% endif %}
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+            <div class="gjs-cell" id="ixik">
+                <div class="gjs-row" id="i49l">
+                    <div class="gjs-cell" id="iuxl" style="justify-content:center;align-content:center;">
+                        <div class="side">
+                            <div class="progress-bar">
+                                <progress id="progress" value="75" min="0" max="100"
+                                          style="visibility:hidden;"></progress>
+                            </div>
+                            <script>
+          const progressElement = document.getElementById('progress');
+          const progressValue = progressElement.value;
+          const currentStyle = getComputedStyle(document.documentElement);
+          document.documentElement.style.setProperty('--current-value', Math.round({{ score }}));
+
+
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="gjs-row" id="iuck" style="text-align:center;">
+                    <div class="gjs-cell" id="i3ev">
+                        <div class="result_header">
+                            <h1>Results : {{ score }}% Unique Idea!</h1>
+                        </div>
+                        <button type="button" class="close" onClick="window.location.href = '/';"
+                                style="background-color:navy;border: none;color: white;padding: 16px 32px;text-decoration: none;margin: 4px 2px;cursor: pointer;">
+                            Restart
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <script>
-        const progressElement = document.getElementById('progress');
-        const progressValue = progressElement.value;
-        const currentStyle = getComputedStyle(document.documentElement);
-        document.documentElement.style.setProperty('--current-value', Math.round({{ score }}));
-
-        </script>
     </div>
-</section>
-
-<div class="container">
-    <table>
-        <tr>
-            <th style="width:30vw;">Found Ideas</th>
-            <th style="width:10vw;">Score</th>
-            <th style="width:10vw;">Type</th>
-        </tr>
-        {% if result != None%}
-        {% for i in result_range %}
-        {% if result[i][0].description != None %}
-        <tr class="box" onClick="redirectToIdeaPage('{{i}}');">
-            <td>
-                {{ result[i][0].title }}
-            </td>
-            <td>
-                {{ result[i][1] }}
-            </td>
-            <td>
-                <img title="{{result[i][0].data[0]}}" alt="{{result[i][0].data[0]}}"
-                     src="{{ find_icon(result[i][0].data[0]) }}" style="width:50px; height:50px">
-            </td>
-
-            {% endif %}
-
-
-            {% endfor %}
-            {% endif %}
-        </tr>
-    </table>
-
+</div>
 </div>
 
-<button type="button" class="close" onClick="window.location.href = '/';"
-        style="background-color:navy;border: none;color: white;padding: 16px 32px;text-decoration: none;margin: 4px 2px;cursor: pointer;">
-    Restart
-</button>
-
+<div class="loader"></div>
 
 </body>
 </html>
