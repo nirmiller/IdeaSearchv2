@@ -33,7 +33,7 @@ def get_meta(search_data):
             image = find_icon(tag)
         else:
             image = info['image_url']
-        extra_data = []
+        extra_data = [url]
 
     elif tag == 'SCHOLAR':
         extra_data = [f'Paper Link : {search_data[0].data[1]}', f'Paper ID : {search_data[0].data[2]}']
@@ -76,8 +76,8 @@ def idea():
         current_res = future.result()[int(index)]
 
         image_l, extra_d, url = get_meta(current_res)
-        print('TYPE', current_res[0].data[0])
-        return render_template('idea.html', result=current_res, find_icon=find_icon, image_link=image_l, extra_data=extra_d, url=url)
+        type = current_res[0].data[0]
+        return render_template('idea3.html', result=current_res, icon=find_icon(type), image_link=image_l, extra_data=extra_d, url=url)
     return "<h1>Hello</h1>"
 
 
