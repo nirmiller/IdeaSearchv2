@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Idea Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+function populateDescriptionBox(text) {
+  var descriptionBox = document.getElementById('description-box');
+  var description = document.getElementById('description');
+
+  description.innerText = text;
+
+  descriptionBox.style.height = 'auto'; // Reset the height to recalculate
+
+  if (description.scrollHeight <= descriptionBox.clientHeight) {
+    // Text does not overflow
+    description.style.fontSize = '16px'; // Reset font size if previously resized
+    descriptionBox.style.height = description.scrollHeight + 'px';
+  } else {
+    // Text overflows
+    description.style.fontSize = '12px'; // Decrease font size
+    descriptionBox.style.height = descriptionBox.clientHeight + 'px';
+  }
+}
+
+
+
+
+
+
+
+
+
+
+    </script>
+    <style>
+            .text{
+            width=50vw;
+        }
+
+
+      * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #766;
+  padding: 30px;
+  text-align: left;
+  font-size: 20px;
+  color: white;
+  width:60%;
+}
+
+
+article {
+  float: left;
+  padding: 20px;
+  width: 60%;
+  background-color: #f1f1f1;
+  font-size: 20px;
+}
+
+gallery{
+    float:right
+
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+footer {
+
+  background-color: white;
+  color: black;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@property --progress-value {
+    syntax: "<integer>";
+    initial-value: 0;
+    inherits: false;
+  }
+
+  @keyframes progress {
+    to { --progress-value: var(--current-value, 0); }
+  }
+
+  .progress-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+    background:
+      radial-gradient(closest-side, white 79%, transparent 80% 100%),
+      conic-gradient(blue calc(var(--progress-value) * 1%), lightblue 0);
+    animation: progress 2s 1 forwards;
+  }
+
+  .progress-bar::before {
+    counter-reset: percentage var(--progress-value);
+    content: counter(percentage) '%';
+    animation: progress 2s 1 forwards;
+  }
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.gjs-row{
+  display:flex;
+  justify-content:flex-start;
+  align-items:stretch;
+  flex-wrap:nowrap;
+  padding:10px;
+}
+.gjs-cell{
+  min-height:75px;
+  flex-grow:1;
+  flex-basis:100%;
+}
+#i8hg{
+  height:659px;
+}
+#i492{
+  height:171px;
+}
+#ivdt{
+  height:182px;
+  position:relative;
+}
+#if4u9{
+  height:191px;
+  position:relative;
+}
+#ihyu8{
+  height:315px;
+  position:fixed;
+}
+#iv3z1{
+  height:325px;
+}
+#ihdhd{
+  position:relative;
+}
+#i12s{
+  position:fixed;
+}
+#is7ab{
+  position:relative;
+}
+#iqsyu{
+  height:315px;
+}
+#idea_type{
+  justify-content:flex-end;
+  position:fixed;
+}
+#similarity{
+  justify-content:flex-end;
+  position:fixed;
+}
+@media (max-width: 768px){
+  .gjs-row{
+    flex-wrap:wrap;
+  }
+}
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body id="im73">
+<div id="i8hg" class="gjs-row">
+    <div id="ilo9" class="gjs-cell">
+        <div id="i12s" class="gjs-row">
+            <div class="gjs-cell" id="iblh">
+
+
+            </div>
+        </div>
+        <div id="i492" class="gjs-row">
+            <div id="idea_title" title="idea_title" class="gjs-cell">
+
+                <h1 class="text">Idea Title : </h1>
+                <h2 class="text">{{ result[0].title }}</h2>
+
+            </div>
+        </div>
+        {% if result[0].data[0] == 'YOUTUBE'%}
+
+        <div id="ivdt" class="gjs-row">
+            <div id="idea_display" title="idea_display" class="gjs-cell">
+
+                <a href="{{ url }}">
+                    <img src="{{ image_link }}" alt="preview" style="width:40vw;height:20vw;">
+                </a>
+            </div>
+        </div>
+
+        {% endif %}
+        <div id="if4u9" class="gjs-row">
+            <div id="idea_desc" title="idea_desc" class="gjs-cell">
+                {% if ( result[0].description != None or result[0].description != "NA") %}
+                <h1 class="text"> Idea Description : </h1>
+                <h3 class="text"> {{ result[0].description }}</h3>
+                {% endif %}
+            </div>
+        </div>
+        <div class="gjs-row" id="is7ab">
+            <div id="idea_links" title="idea_links" class="gjs-cell">
+                {% for ed in extra_data %}
+                <h3>{{ ed }} </h3>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div id="i4og" class="gjs-cell">
+        <div id="ihyu8" class="gjs-row">
+            <div id="iq1z9" class="gjs-cell">
+                <div id="ihdhd">
+                </div>
+            </div>
+        </div>
+        <div id="iv3z1" class="gjs-row">
+            <div id="similarity" title="similarity" class="gjs-cell">
+                <div class="progress-bar">
+                    <progress id="progress" value="75" min="0" max="100"
+                              style="visibility:hidden;height:0;width:0;"></progress>
+                </div>
+
+                <script>
+        const progressElement = document.getElementById('progress');
+        const progressValue = progressElement.value;
+        const currentStyle = getComputedStyle(document.documentElement);
+        document.documentElement.style.setProperty('--current-value', Math.round({{ result[1]*100 }}));
+
+
+                </script>
+            </div>
+        </div>
+        <div class="gjs-row" id="iqsyu">
+            <div id="idea_type" title="idea_type" class="gjs-cell">
+                <img title="{{result[0].data[0]}}" style="width:20vw;height:20vw;margin-top:4vw;"
+                     src="{{ icon }}">
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+<button type="button" class="close" onClick="window.location.href = '/results';"
+                    style="background-color:navy;border: none;color: white;padding: 16px 32px;text-decoration: none;margin: 4px 2px;cursor: pointer;">
+                Back to Results Page
+            </button>
+</body>
+</html>
