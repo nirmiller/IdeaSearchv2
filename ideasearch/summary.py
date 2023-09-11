@@ -1,7 +1,7 @@
 import string
 import re
 import openai
-from .variables import OPENAI_API_KEY, nlp, grammar_checker
+from .variables import OPENAI_API_KEY, nlp
 
 
 
