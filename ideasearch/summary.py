@@ -1,17 +1,15 @@
 import string
 import re
-from gingerit.gingerit import GingerIt
 import openai
-from .variables import OPENAI_API_KEY, nlp
+from .variables import OPENAI_API_KEY, nlp, grammar_checker
 
 
 
 def clean_up_string(str_sam):
   pattern = r'[' + string.punctuation + ']'
-  str_sam = re.sub(pattern, '', str_sam)
-  parser = GingerIt()
-  result = parser.parse(str_sam)['result']
-
+  entry_string = re.sub(pattern, '', str_sam)
+  result = grammar_checker.edits(entry_string, session_id='test_session', auto_apply=True)['applied_text']
+  print('AHHH', result)
   return result
 
 def get_keywords(idea):
@@ -48,6 +46,6 @@ def summarize_title(idea):
       {"role": "user", "content": f"Summarize into a short effective google search, max length 20 words, this text : {text} while keeping in mind and using some of these keywords : {keywords}"}
     ]
   )
-
+  print(clean_up_string(completion.choices[0].message['content']))
   #run abstractive summarization
   return clean_up_string(completion.choices[0].message['content'])
