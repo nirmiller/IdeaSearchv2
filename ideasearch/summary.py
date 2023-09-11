@@ -9,7 +9,7 @@ def clean_up_string(str_sam):
   pattern = r'[' + string.punctuation + ']'
   entry_string = re.sub(pattern, '', str_sam)
   result = grammar_checker.edits(entry_string, session_id='test_session', auto_apply=True)['applied_text']
-  print('AHHH', result)
+  print('AHHH',result)
   return result
 
 def get_keywords(idea):
