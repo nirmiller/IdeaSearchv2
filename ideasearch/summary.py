@@ -8,7 +8,7 @@ from .variables import OPENAI_API_KEY, nlp, grammar_checker
 def clean_up_string(str_sam):
   pattern = r'[' + string.punctuation + ']'
   entry_string = re.sub(pattern, '', str_sam)
-  result = grammar_checker.edits(entry_string, session_id='test_session', auto_apply=True)['applied_text']
+  result = entry_string#grammar_checker.edits(entry_string, session_id='test_session', auto_apply=True)['applied_text']
   print('AHHH',result)
   return result
 
@@ -43,9 +43,9 @@ def summarize_title(idea):
   completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
     messages=[
-      {"role": "user", "content": f"Summarize into a short effective google search, max length 20 words, this text : {text} while keeping in mind and using some of these keywords : {keywords}"}
+      {"role": "user", "content": f"Fix grammar of string and summarize into a short effective google search, max length 20 words, this text : {text} while keeping in mind and using some of these keywords : {keywords}"}
     ]
   )
-  print(clean_up_string(completion.choices[0].message['content']))
+  print('String Searched', clean_up_string(completion.choices[0].message['content']))
   #run abstractive summarization
   return clean_up_string(completion.choices[0].message['content'])

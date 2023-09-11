@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import wikipediaapi
 from apiclient.discovery import build
 import spacy.cli
-from sapling import SaplingClient
+#from sapling import SaplingClient
 
 def configure():
     load_dotenv()
@@ -41,7 +41,7 @@ patent_header = {
 }
 
 #Grammar checker
-sapling_api_key = os.getenv('SAPLING_API_KEY')
-grammar_checker = SaplingClient(api_key=sapling_api_key)
+#sapling_api_key = os.getenv('SAPLING_API_KEY')
+#grammar_checker = SaplingClient(api_key=sapling_api_key)
 
 
