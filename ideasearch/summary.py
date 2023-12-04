@@ -43,7 +43,7 @@ def summarize_title(idea):
   completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
     messages=[
-      {"role": "user", "content": f"Fix grammar of string and summarize into a short effective google search, max length 20 words, this text : {text} while keeping in mind and using some of these keywords : {keywords}"}
+      {"role": "user", "content": f"Here is what I need you to be: You will be implemented in a website to search up ideas. When presented with this upcoming text you will fix the grammar of the text, summarize it with a max of 20 words, and prepare it for a Google or API search. Furthermore, keep it simple and to the point. Here is the text:{text}, here are helpful keywords:{keywords} "}
     ]
   )
   print('String Searched', clean_up_string(completion.choices[0].message['content']))

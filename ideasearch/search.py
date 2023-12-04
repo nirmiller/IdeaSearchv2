@@ -11,8 +11,9 @@ def get_scholar_query(search, depth=False):
     scholar_query_resuts = []
     print("Scholar", search.title)
     try:
+        #https://api.semanticscholar.org/graph/v1/paper/search',headers={'X-API-KEY': S2_API_KEY},  params={'query': query, 'limit': result_limit, 'fields': 'title,url'}
         r = requests.get(
-            f'http://api.semanticscholar.org/graph/v1/paper/search?query={search.title}&offset=10&limit={scholar_depth}&fields=title,authors,url,abstract')
+            f'http://api.semanticscholar.org/graph/v1/paper/search?query={search.title}&offset=2&limit={scholar_depth}&fields=title,authors,url,abstract')
         data = r.json()
         print(data)
         for d in data['data']:
@@ -52,7 +53,7 @@ def get_google_query(search, depth=False):
     google_page_depth = 3
     if depth:
         google_search_depth = 1000
-        google_page_depth = 100
+        google_page_depth = 50
 
     query_results = []
 

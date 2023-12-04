@@ -7,7 +7,7 @@ from .summary import clean_up_string, summarize_title
 
 
 def tree_search(idea_query, threshold, max_depth):
-    max_length = 25
+    max_length = 30
     memorization = []
     search = []
 
